@@ -1,10 +1,13 @@
 package com.SystemSchool.SystemSchool.Model.Entities;
 
 import com.SystemSchool.SystemSchool.Model.Enumns.Serie;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "student", schema = "public")
@@ -26,6 +29,18 @@ public class Student implements Serializable {
 
     @Column(name = "mother_name")
     private String mother_name;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "students")
+    Set<Professor> professors = new HashSet<>();
+
+    public Set<Professor> getProfessors() {
+        return professors;
+    }
+
+    public void setProfessors(Set<Professor> professors) {
+        this.professors = professors;
+    }
 
     public Student(){
 

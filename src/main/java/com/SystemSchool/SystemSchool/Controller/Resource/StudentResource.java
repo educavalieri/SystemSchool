@@ -48,6 +48,4 @@ public class StudentResource {
         return ResponseEntity.ok().body("user deleted");
     }
 
-
-
 }
