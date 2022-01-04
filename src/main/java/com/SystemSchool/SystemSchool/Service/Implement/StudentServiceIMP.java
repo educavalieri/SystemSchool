@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -42,8 +43,8 @@ public class StudentServiceIMP implements StudentServiceInterface {
     }
 
     @Override
-    public Page<Student> findAllStudent(Pageable pageable) {
-        Page<Student> students = studentRepository.findAll(pageable);
+    public List<Student> findAllStudent() {
+        List<Student> students = studentRepository.findAll();
         return students;
     }
 

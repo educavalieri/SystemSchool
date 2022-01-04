@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +26,16 @@ public class Join {
 
     @Autowired
     private StudentServiceIMP studentServiceIMP;
+
+    @RequestMapping("/index")
+    public ModelAndView joinPage(){
+        ModelAndView mv = new ModelAndView("join");
+        Iterable<Student> students = studentServiceIMP.findAllStudent();
+        mv.addObject("students", students);
+        return mv;
+    }
+
+
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity joinTables(@RequestBody JoinDTO dto){
@@ -71,5 +82,7 @@ public class Join {
         return list;
 
     }
+
+
 
 }
