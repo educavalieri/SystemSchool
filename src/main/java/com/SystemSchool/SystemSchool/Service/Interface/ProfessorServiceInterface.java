@@ -10,13 +10,14 @@ public interface ProfessorServiceInterface {
 
     Professor saveProfessor(Professor professor);
 
-    Optional<Professor> findById(Integer id);
+    Professor findById(Integer id);
 
     Professor findByName(String professor_name);
 
     void deleteProfessor(Integer id);
 
     Page<Professor> viewAll(Pageable pageable);
+
 
 
 }

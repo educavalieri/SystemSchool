@@ -23,18 +23,19 @@ public class ProfessorServiceIMP implements ProfessorServiceInterface {
     }
 
     @Override
-    public Optional<Professor> findById(Integer id) {
-        return professorRepository.findById(id);
+    public Professor findById(Integer id) {
+        return professorRepository.findById(id).orElse(null);
     }
 
     @Override
     public Professor findByName(String professor_name) {
+
         return professorRepository.findByName(professor_name);
     }
 
     @Override
     public void deleteProfessor(Integer id) {
-        Professor professor = findById(id).get();
+        Professor professor = findById(id);
         professorRepository.delete(professor);
     }
 

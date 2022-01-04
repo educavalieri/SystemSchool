@@ -9,10 +9,12 @@ import com.SystemSchool.SystemSchool.Service.Interface.ProfessorServiceInterface
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/join")
@@ -29,8 +31,8 @@ public class Join {
         System.out.println(dto.getProf_id());
         System.out.println(dto.getStud_id());
         System.out.println(dto.getGrade());
-        Student student = studentServiceIMP.findByID(dto.getStud_id()).get();
-        Professor professor = professorServiceIMP.findById(dto.getProf_id()).get();
+        Student student = studentServiceIMP.findByID(dto.getStud_id()).orElse(null);
+        Professor professor = professorServiceIMP.findById(dto.getProf_id());
         System.out.println(professor);
         System.out.println(student);
         professor.getStudents().add(student);
@@ -46,7 +48,28 @@ public class Join {
         }
     }
 
+    @RequestMapping(value = "findjoinProfessor{id}", method = RequestMethod.GET)
+    public List findJoinProfessor(@PathVariable("id") Integer id){
+        Professor professor = professorServiceIMP.findById(id);
+        Optional<Professor> test = Optional.ofNullable(professor);
+        if(!test.isPresent()){
+            throw new RuntimeException("Professor doesn't find");
+        }
+        System.out.println(test);
+        List list = Arrays.asList(professor.getStudents().toArray());
+        return list;
+    }
 
+    @RequestMapping(value = "findjoinStudent{id}", method = RequestMethod.GET)
+    public List findJoinStudent(@PathVariable("id") Integer id){
+        Student student = studentServiceIMP.findByID(id).orElse(null);
+        Optional<Student> test = Optional.ofNullable(student);
+        if(!test.isPresent()){
+            throw new RuntimeException("Student doesn't find");
+        }
+        List list = Arrays.asList(student.getProfessors().toArray());
+        return list;
 
+    }
 
 }

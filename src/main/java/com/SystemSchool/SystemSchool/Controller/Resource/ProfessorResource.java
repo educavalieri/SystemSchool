@@ -7,7 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/professor")
@@ -31,27 +33,29 @@ public class ProfessorResource {
 
     @RequestMapping(value = "/view{id}", method = RequestMethod.GET)
     public Professor findById(@PathVariable("id") Integer id){
-        Optional<Professor> professor = professorServiceIMP.findById(id);
-        if(!professor.isPresent()){
-            System.out.println("id is not present");
-            return null;
-        }
-        return professor.get();
+      Professor professor = professorServiceIMP.findById(id);
+      return professor;
     }
 
     @RequestMapping(value = "/delete{id}", method = RequestMethod.GET)
     public void delete(@PathVariable("id") Integer id){
-        Optional<Professor> professor = professorServiceIMP.findById(id);
-        if (!professor.isPresent()){
-            System.out.println("user is not found");
-        }
+        Professor professor = professorServiceIMP.findById(id);
         professorServiceIMP.deleteProfessor(id);
         System.out.println("user deleted");
     }
 
     @RequestMapping(value = "/viewall", method = RequestMethod.GET)
     public Page<Professor> findAll(Pageable pageable){
+
         return professorServiceIMP.viewAll(pageable);
     }
+
+    @RequestMapping(value = "findname{name}", method = RequestMethod.GET)
+    public Professor findByName(@PathVariable("name") String professor_name){
+        return professorServiceIMP.findByName(professor_name);
+    }
+
+
+
 
 }
