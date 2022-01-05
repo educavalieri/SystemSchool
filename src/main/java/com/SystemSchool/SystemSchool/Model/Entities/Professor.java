@@ -25,10 +25,25 @@ public class Professor implements Serializable {
     @JoinTable(name = "notas", joinColumns = @JoinColumn(name = "prof_id"), inverseJoinColumns = @JoinColumn(name = "stud_id"))
     private Set<Student> students = new HashSet<>();
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "prof_subject_id")
+    Subject subjects;
+
+
     Professor(){
     }
 
+    public void setSubjects(Subject subjects) {
+        this.subjects = subjects;
+    }
+
+    public Subject getSubjects() {
+        return subjects;
+    }
+
     Professor(String professor_name){
+
         this.professor_name = professor_name;
     }
 

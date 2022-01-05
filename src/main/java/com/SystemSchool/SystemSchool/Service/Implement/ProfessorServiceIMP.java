@@ -19,7 +19,14 @@ public class ProfessorServiceIMP implements ProfessorServiceInterface {
 
     @Override
     public Professor saveProfessor(Professor professor) {
-        return professorRepository.save(professor);
+
+        try {
+            Professor result = professorRepository.save(professor);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

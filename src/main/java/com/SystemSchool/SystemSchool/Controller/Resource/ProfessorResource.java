@@ -1,7 +1,10 @@
 package com.SystemSchool.SystemSchool.Controller.Resource;
 
+import com.SystemSchool.SystemSchool.Controller.DTO.ProfessorSubjectDTO;
 import com.SystemSchool.SystemSchool.Model.Entities.Professor;
+import com.SystemSchool.SystemSchool.Model.Entities.Subject;
 import com.SystemSchool.SystemSchool.Service.Implement.ProfessorServiceIMP;
+import com.SystemSchool.SystemSchool.Service.Implement.SubjectServiceIMP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +20,9 @@ public class ProfessorResource {
 
     @Autowired
     private ProfessorServiceIMP professorServiceIMP;
+
+    @Autowired
+    private SubjectServiceIMP subjectServiceIMP;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Professor save(@RequestBody Professor professor){
@@ -50,10 +56,21 @@ public class ProfessorResource {
         return professorServiceIMP.viewAll(pageable);
     }
 
-    @RequestMapping(value = "findname{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/findname{name}", method = RequestMethod.GET)
     public Professor findByName(@PathVariable("name") String professor_name){
         return professorServiceIMP.findByName(professor_name);
     }
+
+
+    @RequestMapping(value = "/insertmat", method = RequestMethod.POST)
+    public Professor insertMateria(@RequestBody ProfessorSubjectDTO dto){
+        Subject subject = subjectServiceIMP.findByIDService(dto.getSubject_id());
+        Professor professor = professorServiceIMP.findById(dto.getProf_subject_id());
+        professor.setSubjects(subject);
+        professorServiceIMP.saveProfessor(professor);
+        return professor;
+    }
+
 
 
 
