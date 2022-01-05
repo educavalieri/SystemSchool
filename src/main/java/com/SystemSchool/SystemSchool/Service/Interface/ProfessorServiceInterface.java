@@ -10,7 +10,7 @@ public interface ProfessorServiceInterface {
 
     Professor saveProfessor(Professor professor);
 
-    Professor findById(Integer id);
+    Optional<Professor> findById(Integer id);
 
     Professor findByName(String professor_name);
 

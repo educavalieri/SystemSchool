@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Info</title>
+</head>
+<body>
+<table class="container">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>SERIE</th>
+        <th>FATHER NAME</th>
+        <th>MOTHER NAME</th>
+    </tr>
+    </thead>
+    <tbody>
+
+        <td><span th:text="${students.student_id}"></span></td>
+        <td><span th:text="${students.student_name}"></span></td>
+        <td><span th:text="${students.serie}"></span></td>
+        <td><span th:text="${students.father_name}"></span></td>
+        <td><span th:text="${students.mother_name}"></span></td>
+
+    </tbody>
+
+</table>
+
+
+</body>
+</html>

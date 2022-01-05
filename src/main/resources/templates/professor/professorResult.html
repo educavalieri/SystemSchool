@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Professor Info</title>
+</head>
+<body>
+<table class="container">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="professors : ${professors}">
+        <td><span th:text="${professors.professor_id}"></span></td>
+        <td><span th:text="${professors.professor_name}"></span></td>
+
+    </tbody>
+
+</table>
+
+
+</body>
+</html>

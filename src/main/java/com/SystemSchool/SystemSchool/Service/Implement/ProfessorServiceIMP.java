@@ -30,8 +30,9 @@ public class ProfessorServiceIMP implements ProfessorServiceInterface {
     }
 
     @Override
-    public Professor findById(Integer id) {
-        return professorRepository.findById(id).orElse(null);
+    public Optional<Professor> findById(Integer id) {
+
+        return professorRepository.findById(id);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class ProfessorServiceIMP implements ProfessorServiceInterface {
 
     @Override
     public void deleteProfessor(Integer id) {
-        Professor professor = findById(id);
+        Professor professor = findById(id).orElse(null);
         professorRepository.delete(professor);
     }
 

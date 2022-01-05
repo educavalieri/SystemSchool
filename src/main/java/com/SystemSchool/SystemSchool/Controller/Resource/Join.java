@@ -43,7 +43,7 @@ public class Join {
         System.out.println(dto.getStud_id());
         System.out.println(dto.getGrade());
         Student student = studentServiceIMP.findByID(dto.getStud_id()).orElse(null);
-        Professor professor = professorServiceIMP.findById(dto.getProf_id());
+        Professor professor = professorServiceIMP.findById(dto.getProf_id()).orElse(null);
         System.out.println(professor);
         System.out.println(student);
         professor.getStudents().add(student);
@@ -61,7 +61,7 @@ public class Join {
 
     @RequestMapping(value = "findjoinProfessor{id}", method = RequestMethod.GET)
     public List findJoinProfessor(@PathVariable("id") Integer id){
-        Professor professor = professorServiceIMP.findById(id);
+        Professor professor = professorServiceIMP.findById(id).orElse(null);
         Optional<Professor> test = Optional.ofNullable(professor);
         if(!test.isPresent()){
             throw new RuntimeException("Professor doesn't find");
